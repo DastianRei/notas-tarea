@@ -29,9 +29,25 @@ function validarFormulario(e) {
   console.log(objNota);
   crearNota();
 }
+function mostrarNotas() {
+    //limpiarHTML();
 
+    const divNotas = document.querySelector('.div-notas');
+    
+    listaNotas.forEach(nota => {
+        const {fecha, titulo, texto} = nota;
+
+        const parrafo = document.createElement('p');
+        parrafo.textContent = `${fecha} - ${titulo} - ${texto} - `;
+        parrafo.dataset.id = fecha;
+        const hr = document.createElement('hr');
+        divNotas.appendChild(parrafo);
+        divNotas.appendChild(hr);
+    });
+}
 function crearNota() {
   listaNotas.push({ ...objNota });
+  mostrarNotas();
   formulario.reset();
   limpiarObjeto();
 }

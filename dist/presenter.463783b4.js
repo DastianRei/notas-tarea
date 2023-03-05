@@ -148,8 +148,25 @@ function validarFormulario(e) {
   console.log(objNota);
   crearNota();
 }
+function mostrarNotas() {
+  //limpiarHTML();
+
+  var divNotas = document.querySelector('.div-notas');
+  listaNotas.forEach(function (nota) {
+    var fecha = nota.fecha,
+      titulo = nota.titulo,
+      texto = nota.texto;
+    var parrafo = document.createElement('p');
+    parrafo.textContent = "".concat(fecha, " - ").concat(titulo, " - ").concat(texto, " - ");
+    parrafo.dataset.id = fecha;
+    var hr = document.createElement('hr');
+    divNotas.appendChild(parrafo);
+    divNotas.appendChild(hr);
+  });
+}
 function crearNota() {
   listaNotas.push(_objectSpread({}, objNota));
+  mostrarNotas();
   formulario.reset();
   limpiarObjeto();
 }
