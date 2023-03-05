@@ -135,7 +135,7 @@ var formulario = document.querySelector("#formulario");
 var tituloInput = document.querySelector("#titulo");
 var textoInput = document.querySelector("#texto");
 var btnCrearInput = document.querySelector("#btn-crear");
-ormulario.addEventListener("submit", validarFormulario);
+formulario.addEventListener("submit", validarFormulario);
 function validarFormulario(e) {
   e.preventDefault();
   if (tituloInput.value === "" || textoInput.value === "") {
@@ -145,6 +145,7 @@ function validarFormulario(e) {
   objNota.fecha = Date.now();
   objNota.titulo = tituloInput.value;
   objNota.texto = textoInput.value;
+  console.log(objNota);
   crearNota();
 }
 function crearNota() {

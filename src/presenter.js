@@ -13,7 +13,7 @@ const tituloInput = document.querySelector("#titulo");
 const textoInput = document.querySelector("#texto");
 const btnCrearInput = document.querySelector("#btn-crear");
 
-ormulario.addEventListener("submit", validarFormulario);
+formulario.addEventListener("submit", validarFormulario);
 
 function validarFormulario(e) {
   e.preventDefault();
@@ -26,6 +26,7 @@ function validarFormulario(e) {
   objNota.fecha = Date.now();
   objNota.titulo = tituloInput.value;
   objNota.texto = textoInput.value;
+  console.log(objNota);
   crearNota();
 }
 
