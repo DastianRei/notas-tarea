@@ -30,20 +30,29 @@ function validarFormulario(e) {
   crearNota();
 }
 function mostrarNotas() {
-    //limpiarHTML();
+    limpiarHTML();
+  const divNotas = document.querySelector(".div-notas");
 
-    const divNotas = document.querySelector('.div-notas');
-    
-    listaNotas.forEach(nota => {
-        const {fecha, titulo, texto} = nota;
+  listaNotas.forEach((nota) => {
+    const { fecha, titulo, texto } = nota;
 
-        const parrafo = document.createElement('p');
-        parrafo.textContent = `${fecha} - ${titulo} - ${texto} - `;
-        parrafo.dataset.id = fecha;
-        const hr = document.createElement('hr');
-        divNotas.appendChild(parrafo);
-        divNotas.appendChild(hr);
-    });
+    const parrafo = document.createElement("p");
+    parrafo.textContent = `${fecha} - ${titulo} - ${texto} - `;
+    parrafo.dataset.id = fecha;
+    const eliminarBoton = document.createElement("button");
+    eliminarBoton.onclick = () => eliminarEmpleado(titulo);
+    eliminarBoton.textContent = "Eliminar";
+    eliminarBoton.classList.add("btn", "btn-eliminar");
+    parrafo.append(eliminarBoton);
+    const hr = document.createElement("hr");
+    divNotas.appendChild(parrafo);
+    divNotas.appendChild(hr);
+  });
+}
+function eliminarEmpleado(titulo) {
+  listaNotas = listaNotas.filter((nota) => nota.titulo !== titulo);
+  limpiarHTML();
+  mostrarNotas();
 }
 function crearNota() {
   listaNotas.push({ ...objNota });
@@ -52,7 +61,13 @@ function crearNota() {
   limpiarObjeto();
 }
 function limpiarObjeto() {
-    objNota.fecha = '';
-    objNota.titulo = '';
-    objNota.texto = '';
+  objNota.fecha = "";
+  objNota.titulo = "";
+  objNota.texto = "";
+}
+function limpiarHTML() {
+  const divNotas = document.querySelector(".div-notas");
+  while (divNotas.firstChild) {
+    divNotas.removeChild(divNotas.firstChild);
+  }
 }
