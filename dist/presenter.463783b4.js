@@ -135,7 +135,23 @@ var formulario = document.querySelector("#formulario");
 var tituloInput = document.querySelector("#titulo");
 var textoInput = document.querySelector("#texto");
 var btnCrearInput = document.querySelector("#btn-crear");
+var formularioBuscar = document.querySelector("#formulario-buscar");
+var tituloBuscar = document.querySelector("#titulo-buscar");
+formularioBuscar.addEventListener("submit", function (event) {
+  var divBuscado = document.querySelector("#div-buscado");
+  var nota = buscarNota(tituloBuscar.value);
+  console.log(nota);
+  divBuscado.innerHTML = "".concat(nota.fecha, " - ").concat(nota.titulo, " - ").concat(nota.texto, " - ");
+});
 formulario.addEventListener("submit", validarFormulario);
+function buscarNota(titulo) {
+  for (var i = 0; i < listaNotas.length; i++) {
+    var tituloABuscar = listaNotas[i].titulo;
+    if (titulo == tituloABuscar) {
+      return notas[i];
+    }
+  }
+}
 function validarFormulario(e) {
   e.preventDefault();
   if (tituloInput.value === "" || textoInput.value === "") {

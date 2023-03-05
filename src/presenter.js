@@ -12,9 +12,27 @@ const formulario = document.querySelector("#formulario");
 const tituloInput = document.querySelector("#titulo");
 const textoInput = document.querySelector("#texto");
 const btnCrearInput = document.querySelector("#btn-crear");
+const formularioBuscar = document.querySelector("#formulario-buscar");
+const tituloBuscar = document.querySelector("#titulo-buscar");
+
+formularioBuscar.addEventListener("submit",(event)=>{
+    const divBuscado = document.querySelector("#div-buscado")
+    let nota = buscarNota(tituloBuscar.value);
+    console.log(nota)
+    divBuscado.innerHTML=`${nota.fecha} - ${nota.titulo} - ${nota.texto} - `;
+})
 
 formulario.addEventListener("submit", validarFormulario);
 
+function buscarNota(titulo){
+  for (var i = 0; i < listaNotas.length; i++) {
+    var tituloABuscar = listaNotas[i].titulo;
+    if (titulo == tituloABuscar) {
+      return notas[i];
+    }
+  }
+
+}
 function validarFormulario(e) {
   e.preventDefault();
 
