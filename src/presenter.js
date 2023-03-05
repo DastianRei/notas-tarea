@@ -26,16 +26,16 @@ function validarFormulario(e) {
   objNota.fecha = Date.now();
   objNota.titulo = tituloInput.value;
   objNota.texto = textoInput.value;
-  agregarEmpleado();
+  crearNota();
 }
 
-function agregarEmpleado() {
+function crearNota() {
   listaNotas.push({ ...objNota });
   formulario.reset();
   limpiarObjeto();
 }
 function limpiarObjeto() {
-    objEmpleado.id = '';
-    objEmpleado.nombre = '';
-    objEmpleado.puesto = '';
+    objNota.fecha = '';
+    objNota.titulo = '';
+    objNota.texto = '';
 }

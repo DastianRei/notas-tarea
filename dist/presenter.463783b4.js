@@ -145,17 +145,17 @@ function validarFormulario(e) {
   objNota.fecha = Date.now();
   objNota.titulo = tituloInput.value;
   objNota.texto = textoInput.value;
-  agregarEmpleado();
+  crearNota();
 }
-function agregarEmpleado() {
+function crearNota() {
   listaNotas.push(_objectSpread({}, objNota));
   formulario.reset();
   limpiarObjeto();
 }
 function limpiarObjeto() {
-  objEmpleado.id = '';
-  objEmpleado.nombre = '';
-  objEmpleado.puesto = '';
+  objNota.fecha = '';
+  objNota.titulo = '';
+  objNota.texto = '';
 }
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
