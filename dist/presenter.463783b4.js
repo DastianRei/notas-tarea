@@ -142,14 +142,34 @@ function validarFormulario(e) {
     alert("Todos los campos se deben llenar");
     return;
   }
-  objNota.fecha = Date.now();
+  if (editando) {
+    editarNota();
+    editando = false;
+  } else {
+    objNota.fecha = Date.now();
+    objNota.titulo = tituloInput.value;
+    objNota.texto = textoInput.value;
+    crearNota();
+  }
+}
+function editarNota() {
   objNota.titulo = tituloInput.value;
   objNota.texto = textoInput.value;
-  console.log(objNota);
-  crearNota();
+  listaNotas.map(function (nota) {
+    if (nota.fecha === objNota.fecha) {
+      nota.fecha = objNota.fecha;
+      nota.texto = objNota.texto;
+      nota.titulo = objNota.titulo;
+    }
+  });
+  refrescarHTML();
+  mostrarNotas();
+  formulario.reset();
+  formulario.querySelector('button[type="submit"]').textContent = "Agregar";
+  editando = false;
 }
 function mostrarNotas() {
-  limpiarHTML();
+  refrescarHTML();
   var divNotas = document.querySelector(".div-notas");
   listaNotas.forEach(function (nota) {
     var fecha = nota.fecha,
@@ -158,9 +178,16 @@ function mostrarNotas() {
     var parrafo = document.createElement("p");
     parrafo.textContent = "".concat(fecha, " - ").concat(titulo, " - ").concat(texto, " - ");
     parrafo.dataset.id = fecha;
+    var editarBoton = document.createElement("button");
+    editarBoton.onclick = function () {
+      return cargarNota(nota);
+    };
+    editarBoton.textContent = "Editar";
+    editarBoton.classList.add("btn", "btn-editar");
+    parrafo.append(editarBoton);
     var eliminarBoton = document.createElement("button");
     eliminarBoton.onclick = function () {
-      return eliminarEmpleado(titulo);
+      return eliminarNota(titulo);
     };
     eliminarBoton.textContent = "Eliminar";
     eliminarBoton.classList.add("btn", "btn-eliminar");
@@ -170,11 +197,11 @@ function mostrarNotas() {
     divNotas.appendChild(hr);
   });
 }
-function eliminarEmpleado(titulo) {
+function eliminarNota(titulo) {
   listaNotas = listaNotas.filter(function (nota) {
     return nota.titulo !== titulo;
   });
-  limpiarHTML();
+  refrescarHTML();
   mostrarNotas();
 }
 function crearNota() {
@@ -188,11 +215,21 @@ function limpiarObjeto() {
   objNota.titulo = "";
   objNota.texto = "";
 }
-function limpiarHTML() {
+function refrescarHTML() {
   var divNotas = document.querySelector(".div-notas");
   while (divNotas.firstChild) {
     divNotas.removeChild(divNotas.firstChild);
   }
+}
+function cargarNota(nota) {
+  var fecha = nota.fecha,
+    titulo = nota.titulo,
+    texto = nota.texto;
+  tituloInput.value = titulo;
+  textoInput.value = texto;
+  objNota.fecha = fecha;
+  formulario.querySelector('button[type="submit"]').textContent = "Actualizar";
+  editando = true;
 }
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
